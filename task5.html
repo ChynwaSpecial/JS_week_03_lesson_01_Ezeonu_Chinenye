@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Generate Table from Array of Objects</title>
+</head>
+<body>
+<div id="mountains"></div>
+
+<script>
+const mountains = [
+  { name: 'Kilimanjaro', height: 5895, place: 'Tanzania' },
+  { name: 'Everest', height: 8848, place: 'Nepal' },
+  { name: 'Mont Blanc', height: 4805, place: 'Franco-Italian' }
+];
+
+function generateTable(data) {
+  let table = document.createElement('table');
+  let thead = document.createElement('thead');
+  let tbody = document.createElement('tbody');
+  
+  let headerRow = document.createElement('tr');
+  Object.keys(data[0]).forEach(key => {
+    let th = document.createElement('th');
+    th.innerText = key;
+    headerRow.appendChild(th);
+  });
+  thead.appendChild(headerRow);
+
+  data.forEach(item => {
+    let row = document.createElement('tr');
+    Object.values(item).forEach(value => {
+      let td = document.createElement('td');
+      td.innerText = value;
+      if (typeof value === 'number') {
+        td.style.textAlign = 'right';
+      }
+      row.appendChild(td);
+    });
+    tbody.appendChild(row);
+  });
+
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  return table;
+}
+
+document.getElementById('mountains').appendChild(generateTable(mountains));
+</script>
+</body>
+</html>
